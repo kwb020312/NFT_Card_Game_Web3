@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 
-import { PageHOC, CustomInput } from "../components";
+import { PageHOC, CustomInput, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
 
 const Home = () => {
   const { contract, walletAddress } = useGlobalContext();
   const [playerName, setPlayerName] = useState("");
+
+  const handleClick = async () => {};
 
   return (
     <div className="flex flex-col">
@@ -14,6 +16,11 @@ const Home = () => {
         placeholder="플레이어 이름을 입력해주세요."
         value={playerName}
         handleValueChange={setPlayerName}
+      />
+      <CustomButton
+        title="회원가입하기"
+        handleClick={handleClick}
+        restStyles="mt-6"
       />
     </div>
   );
