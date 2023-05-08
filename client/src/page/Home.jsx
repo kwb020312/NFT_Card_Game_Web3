@@ -11,4 +11,10 @@ const Home = () => {
   );
 };
 
-export default PageHOC(Home);
+export default PageHOC(
+  Home,
+  <>
+    Web3.0 기반의 카드 게임인 <br /> Avax Gods에 오신것을 환영합니다.
+  </>,
+  <>시작하기에 앞서, 당신의 NFT 지갑을 연결하고 카드 배틀에 참여하세요!</>
+);
