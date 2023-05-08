@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { PageHOC } from "../components";
+import { PageHOC, CustomInput } from "../components";
+import { useGlobalContext } from "../context";
 
 const Home = () => {
+  const { contract, walletAddress } = useGlobalContext();
+  const [playerName, setPlayerName] = useState("");
+
   return (
-    <div>
-      <h1 className="text-5xl p-3">Avax Gods</h1>
-      <h2 className="text-3xl p-3">Web3.0 NFT 전략 카드게임</h2>
+    <div className="flex flex-col">
+      <CustomInput
+        label="플레이어 이름"
+        placeholder="플레이어 이름을 입력해주세요."
+        value={playerName}
+        handleValueChange={setPlayerName}
+      />
     </div>
   );
 };
