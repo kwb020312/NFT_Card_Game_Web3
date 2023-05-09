@@ -4,7 +4,7 @@ import { PageHOC, CustomInput, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
 
 const Home = () => {
-  const { contract, walletAddress } = useGlobalContext();
+  const { contract, walletAddress, setShowAlert } = useGlobalContext();
   const [playerName, setPlayerName] = useState("");
 
   const handleClick = async () => {
@@ -13,8 +13,20 @@ const Home = () => {
 
       if (!playerExists) {
         await contract.registerPlayer(playerName, playerName);
+
+        setShowAlert({
+          status: true,
+          type: "info",
+          message: `${playerName}님이 소환되었습니다!`,
+        });
       }
     } catch (error) {
+      console.log(error, error.message);
+      setShowAlert({
+        status: true,
+        type: "failure",
+        message: "에러가 발생했습니다.",
+      });
       alert(error);
     }
   };
