@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { PageHOC, CustomInput, CustomButton } from "../components";
 import { useGlobalContext } from "../context";
@@ -30,6 +30,12 @@ const Home = () => {
       alert(error);
     }
   };
+
+  useEffect(() => {
+    const checkForPlayerToekn = async () => {
+      const playerExists = await contract.isPlayer(walletAddress);
+    };
+  }, [contract]);
 
   return (
     <div className="flex flex-col">

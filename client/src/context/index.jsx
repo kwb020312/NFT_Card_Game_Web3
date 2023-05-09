@@ -10,6 +10,7 @@ import Web3Modal from "web3modal";
 import { useNavigate } from "react-router-dom";
 
 import { ABI, ADDRESS } from "../contract";
+import { createEventListeners } from "./createEventListener";
 
 const GlobalContext = createContext();
 
@@ -22,6 +23,8 @@ export const GlobalContextProvider = ({ children }) => {
     type: "info",
     message: "",
   });
+
+  const navigate = useNavigate();
 
   const updateCurrentWalletAddress = async () => {
     const accounts = await window.ethereum.request({
@@ -51,6 +54,18 @@ export const GlobalContextProvider = ({ children }) => {
 
     setSmartContractAndProvider();
   }, []);
+
+  useEffect(() => {
+    if (contract) {
+      createEventListeners({
+        navigate,
+        contract,
+        provider,
+        walletAddress,
+        setShowAlert,
+      });
+    }
+  }, [contract]);
 
   useEffect(() => {
     if (showAlert?.status) {
