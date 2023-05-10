@@ -10,6 +10,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const handleClick = async () => {
+    console.log(contract);
     try {
       const playerExists = await contract.isPlayer(walletAddress);
 
