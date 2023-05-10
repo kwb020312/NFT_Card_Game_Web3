@@ -1,13 +1,36 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { PageHOC } from "../components";
+import styles from "../styles";
+import { useGlobalContext } from "../context";
+
+import { PageHOC, CustomButton, CustomInput } from "../components";
 
 const CreateBattle = () => {
+  const { contract, battleName, setBattleName } = useGlobalContext();
+  const navigate = useNavigate();
+  const handleClick = () => {};
+
   return (
-    <div>
-      <h1 className="text-white text-xl">방을 생성하고 대화해보세요.</h1>
-    </div>
+    <>
+      <div className="flex flex-col mb-5">
+        <CustomInput
+          label="배틀"
+          placeholder="생성할 방 이름을 입력해주세요."
+          value={battleName}
+          handleValueChange={setBattleName}
+        />
+
+        <CustomButton
+          title={"방 생성하기"}
+          handleClick={handleClick}
+          restStyles={"mt-6"}
+        />
+      </div>
+      <p className={styles.infoText} onClick={() => navigate("/join-battle")}>
+        혹은 존재하는 다른 전투에 참여하십시오!
+      </p>
+    </>
   );
 };
 
