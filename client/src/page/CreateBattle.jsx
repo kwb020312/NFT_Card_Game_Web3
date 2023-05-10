@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../styles";
 import { useGlobalContext } from "../context";
 
-import { PageHOC, CustomButton, CustomInput } from "../components";
+import { PageHOC, CustomButton, CustomInput, GameLoad } from "../components";
 
 const CreateBattle = () => {
   const { contract, battleName, setBattleName } = useGlobalContext();
@@ -25,6 +25,7 @@ const CreateBattle = () => {
 
   return (
     <>
+      {waitBattle && <GameLoad />}
       <div className="flex flex-col mb-5">
         <CustomInput
           label="배틀"
