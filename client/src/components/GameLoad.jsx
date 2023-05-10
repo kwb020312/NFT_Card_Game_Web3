@@ -9,7 +9,6 @@ import styles from "../styles";
 const GameLoad = () => {
   const { walletAddress } = useGlobalContext();
   const navigate = useNavigate();
-
   return (
     <div className={`${styles.flexBetween} ${styles.gameLoadContainer}`}>
       <div className={styles.gameLoadBtnBox}>
@@ -35,9 +34,7 @@ const GameLoad = () => {
               alt="player1"
               className={styles.gameLoadPlayerImg}
             />
-            <p className={styles.gameLoadPlayerText}>
-              {walletAddress.slice(0, 30)}
-            </p>
+            <p className={styles.gameLoadPlayerText}>플레이어(나)</p>
           </div>
 
           <h2 className={styles.gameLoadVS}>VS</h2>
@@ -47,7 +44,7 @@ const GameLoad = () => {
               alt="player2"
               className={styles.gameLoadPlayerImg}
             />
-            <p className={styles.gameLoadPlayerText}>???????????????????????</p>
+            <p className={styles.gameLoadPlayerText}>플레이어(상대방)</p>
           </div>
         </div>
       </div>
