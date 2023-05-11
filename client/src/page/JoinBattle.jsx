@@ -7,10 +7,52 @@ import { CustomButton, PageHOC } from "../components";
 import styles from "../styles";
 
 const JoinBattle = () => {
+  const { contract, gameData, setShowAlert, setBattleName, walletAddress } =
+    useGlobalContext();
+  console.log(contract);
   const navigate = useNavigate();
+
+  const handleClick = async (battleName) => {
+    setBattleName(battleName);
+
+    try {
+      await contract.JoinBattle(battleName);
+
+      setShowAlert({
+        status: true,
+        type: "success",
+        message: `${battleName}에 참가하였습니다.`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <h2 className={styles.joinHeadText}>참여가능한 전투:</h2>
+      <div className={styles.joinContainer}>
+        {gameData.pendingBattles.length ? (
+          gameData.pendingBattles
+            .filter((battle) => !battle.players.includes(walletAddress))
+            .map((battle, index) => (
+              <div key={battle.name + index} className={styles.flexBetween}>
+                <p className={styles.joinBattleTitle}>
+                  {index + 1}. {battle.name}
+                </p>
+                <CustomButton
+                  title={"참가하기"}
+                  handleClick={() => handleClick(battle.name)}
+                />
+              </div>
+            ))
+        ) : (
+          <p className={styles.joinLoading}>
+            새 전투를 보기위해 새로고침 해주세요
+          </p>
+        )}
+      </div>
+
       <p className={styles.infoText} onClick={() => navigate("/create-battle")}>
         혹은 새로운 방을 생성하세요
       </p>
