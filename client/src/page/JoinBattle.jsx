@@ -9,14 +9,14 @@ import styles from "../styles";
 const JoinBattle = () => {
   const { contract, gameData, setShowAlert, setBattleName, walletAddress } =
     useGlobalContext();
-  console.log(contract);
   const navigate = useNavigate();
 
   const handleClick = async (battleName) => {
     setBattleName(battleName);
 
     try {
-      await contract.JoinBattle(battleName);
+      console.log(contract);
+      await contract.joinBattle(battleName);
 
       setShowAlert({
         status: true,
