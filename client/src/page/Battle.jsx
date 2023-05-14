@@ -22,6 +22,7 @@ const Battle = () => {
     showAlert,
     setShowAlert,
     battleGround,
+    setErrorMessage,
   } = useGlobalContext();
   const [player1, setPlayer1] = useState({});
   const [player2, setPlayer2] = useState({});
@@ -71,7 +72,7 @@ const Battle = () => {
           mana: p2M,
         });
       } catch (error) {
-        console.log(error);
+        setErrorMessage(error);
       }
     };
     if (contract && gameData.activeBattle) getPlayerInfo();
@@ -89,7 +90,7 @@ const Battle = () => {
         message: `${choice === 1 ? "공격" : "방어"}를 게시합니다!`,
       });
     } catch (error) {
-      console.log(error);
+      setErrorMessage(error);
     }
   };
 

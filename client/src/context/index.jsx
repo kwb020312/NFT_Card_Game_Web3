@@ -30,6 +30,7 @@ export const GlobalContextProvider = ({ children }) => {
     pendingBattles: [],
     activeBattle: null,
   });
+  const [errorMessage, setErrorMessage] = useState("");
   const [updateGameData, setUpdateGameData] = useState(0);
   const [battleGround, setBattleGround] = useState("bg-astral");
   const [step, setStep] = useState(1);
@@ -109,6 +110,22 @@ export const GlobalContextProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [showAlert]);
+
+  useEffect(() => {
+    if (errorMessage) {
+      const parsedErrorMessage = errorMessage?.reason?.slice(
+        "execution reverted: ".length.slice(0, -1)
+      );
+
+      if (parsedErrorMessage) {
+        setShowAlert({
+          status: true,
+          type: "failure",
+          message: parsedErrorMessage,
+        });
+      }
+    }
+  }, [errorMessage]);
 
   useEffect(() => {
     const fetchGameData = async () => {
