@@ -16,7 +16,9 @@ import { createEventListeners } from "./createEventListener.js";
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [walletAddress, setWalletAddress] = useState("");
+  const [walletAddress, setWalletAddress] = useState(
+    "0x411Eb5aa9Aa7F799F420ad5b0278D6180275D0e6"
+  );
   const [battleGround, setBattleGround] = useState("bg-astral");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
@@ -71,6 +73,8 @@ export const GlobalContextProvider = ({ children }) => {
       method: "eth_requestAccounts",
     });
 
+    console.log(accounts);
+
     if (accounts) setWalletAddress(accounts[0]);
   };
 
@@ -88,7 +92,6 @@ export const GlobalContextProvider = ({ children }) => {
       const newProvider = new ethers.providers.Web3Provider(connection);
       const signer = newProvider.getSigner();
       const newContract = new ethers.Contract(ADDRESS, ABI, signer);
-
       setProvider(newProvider);
       setContract(newContract);
     };
