@@ -47,6 +47,14 @@ const GameInfo = () => {
             ))}
           </div>
         </div>
+
+        <div className={`${styles.flexBetween} mt-10 gap-4 w-full`}>
+          <CustomButton
+            title="전투지역 변경하기"
+            handleClick={() => navigate("/battleground")}
+          />
+          <CustomButton title="나가기" handleClick={handleBattleExit} />
+        </div>
       </div>
     </>
   );
