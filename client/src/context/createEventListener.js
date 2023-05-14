@@ -85,4 +85,25 @@ export const createEventListeners = ({
       }
     }
   });
+
+  const BattleEndedEventFilter = contract.filters.BattleEnded();
+
+  AddNewEvent(BattleEndedEventFilter, provider, ({ args }) => {
+    console.log("전투가 종료되었습니다!", args, walletAddress);
+    if (walletAddress.toLowerCase() === args.winner.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "success",
+        message: "당신이 승리했습니다!",
+      });
+    } else if (walletAddress.toLowerCase() === args.loser.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "failure",
+        message: "당신이 패배했습니다..",
+      });
+    }
+
+    navigate("/create-battle");
+  });
 };
