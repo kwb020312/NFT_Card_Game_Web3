@@ -48,6 +48,21 @@ export const createEventListeners = ({
     }
   });
 
+  const NewGameTokenEventFilter = contract.filters.NewGameToken();
+  AddNewEvent(NewGameTokenEventFilter, provider, ({ args }) => {
+    console.log("새로운 토큰이 발급되었습니다!", args);
+
+    if (walletAddress.toLowerCase() === args.owner.toLowerCase()) {
+      setShowAlert({
+        status: true,
+        type: "success",
+        message: "플레이어의 새로운 게임 토큰이 생성되었습니다!",
+      });
+
+      navigate("/create-battle");
+    }
+  });
+
   const NewBattleEventFilter = contract.filters.NewBattle();
 
   AddNewEvent(NewBattleEventFilter, provider, ({ args }) => {
@@ -64,7 +79,7 @@ export const createEventListeners = ({
   });
 
   const BattleMoveEventFilter = contract.filters.BattleMove();
-  AddNewEvent(NewBattleEventFilter, provider, ({ args }) => {
+  AddNewEvent(BattleMoveEventFilter, provider, ({ args }) => {
     console.log("배틀 중 행동을 시도합니다!");
   });
 
