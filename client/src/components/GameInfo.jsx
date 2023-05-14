@@ -41,7 +41,7 @@ const GameInfo = () => {
           <h3 className={styles.gameInfoHeading}>게임 규칙:</h3>
           <div className="mt-3">
             {gameRules.map((rule, index) => (
-              <p key={`game-rule-index`} className={styles.gameInfoText}>
+              <p key={`game-rule-${index}`} className={styles.gameInfoText}>
                 <span className="font-bold">{index + 1}</span>.{rule}
               </p>
             ))}

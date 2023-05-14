@@ -79,6 +79,18 @@ const Battle = () => {
 
   const makeAMove = async (choice) => {
     playAudio(choice === 1 ? attackSound : defenseSound);
+
+    try {
+      await contract.attackOrDefendChoice(choice, battleName);
+
+      setShowAlert({
+        status: true,
+        type: "info",
+        message: `${choice === 1 ? "공격" : "방어"}를 게시합니다!`,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

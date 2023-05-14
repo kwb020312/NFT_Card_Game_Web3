@@ -47,4 +47,9 @@ export const createEventListeners = ({
 
     setUpdateGameData((prevUpdateGameData) => prevUpdateGameData + 1);
   });
+
+  const BattleMoveEventFilter = contract.filters.BattleMove();
+  AddNewEvent(NewBattleEventFilter, provider, ({ args }) => {
+    console.log("배틀 중 행동을 시도합니다!");
+  });
 };
