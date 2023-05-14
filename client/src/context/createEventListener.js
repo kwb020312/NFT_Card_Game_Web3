@@ -1,6 +1,10 @@
 import { ethers } from "ethers";
 
 import { ABI } from "../contract";
+import { playAudio, sparcle } from "../utils/animation";
+import { defenseSound } from "../assets";
+
+const emptyAccount = "0x0000000000000000000000000000000000000000";
 
 const AddNewEvent = (eventFilter, provider, cb) => {
   provider.removeListener(eventFilter);
@@ -11,6 +15,15 @@ const AddNewEvent = (eventFilter, provider, cb) => {
   });
 };
 
+const getCoords = (cardRef) => {
+  const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+
+  return {
+    pageX: left + width / 2,
+    pageY: top + height / 2.25,
+  };
+};
+
 export const createEventListeners = ({
   navigate,
   contract,
@@ -18,6 +31,8 @@ export const createEventListeners = ({
   walletAddress,
   setShowAlert,
   setUpdateGameData,
+  player1Ref,
+  player2Ref,
 }) => {
   const NewPlayerEventFilter = contract.filters.NewPlayer();
 
@@ -51,5 +66,23 @@ export const createEventListeners = ({
   const BattleMoveEventFilter = contract.filters.BattleMove();
   AddNewEvent(NewBattleEventFilter, provider, ({ args }) => {
     console.log("배틀 중 행동을 시도합니다!");
+  });
+
+  const RoundEndedEventFilter = contract.filters.RoundEnded();
+
+  AddNewEvent(RoundEndedEventFilter, provider, ({ args }) => {
+    console.log("라운드가 종료되었습니다!", args, walletAddress);
+
+    for (let i = 0; i < args.damagedPlayers.length; i++) {
+      if (args.damagedPlayers[i] !== emptyAccount) {
+        if (args.damagedPlayers[i] === walletAddress) {
+          sparcle(getCoords(player1Ref));
+        } else if (args.damagedPlayers[i] !== walletAddress) {
+          sparcle(getCoords(player2Ref));
+        }
+      } else {
+        playAudio(defenseSound);
+      }
+    }
   });
 };

@@ -13,6 +13,9 @@ import { ABI, ADDRESS } from "../contract";
 import { createEventListeners } from "./createEventListener";
 import { GetParams } from "../utils/onboard";
 
+const player1Ref = useRef();
+const player2Ref = useRef();
+
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
@@ -97,6 +100,8 @@ export const GlobalContextProvider = ({ children }) => {
         walletAddress,
         setShowAlert,
         setUpdateGameData,
+        player1Ref,
+        player2Ref,
       });
     }
   }, [contract, step]);
@@ -164,6 +169,10 @@ export const GlobalContextProvider = ({ children }) => {
         setBattleName,
         battleGround,
         setBattleGround,
+        errorMessage,
+        setErrorMessage,
+        player1Ref,
+        player2Ref,
       }}
     >
       {children}
