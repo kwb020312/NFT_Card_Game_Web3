@@ -137,10 +137,10 @@ export {
 };
 
 export const battlegrounds = [
-  { id: "bg-saiman", image: saiman, name: "Saiman" },
-  { id: "bg-astral", image: astral, name: "Astral" },
-  { id: "bg-eoaalien", image: eoaalien, name: "Eoaalien" },
-  { id: "bg-panight", image: panight, name: "Panight" },
+  { id: "bg-saiman", image: saiman, name: "사이버네틱" },
+  { id: "bg-astral", image: astral, name: "은하계" },
+  { id: "bg-eoaalien", image: eoaalien, name: "고대의 숲" },
+  { id: "bg-panight", image: panight, name: "버려진 광산" },
 ];
 
 export const gameRules = [
