@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
 
-import styles from '../styles';
-import { CustomButton } from '.';
-import { useGlobalContext } from '../context';
-import { GetParams, SwitchNetwork } from '../utils/onboard.js';
+import styles from "../styles";
+import { CustomButton } from ".";
+import { useGlobalContext } from "../context";
+import { GetParams, SwitchNetwork } from "../utils/onboard.js";
 
 const OnboardModal = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -20,11 +20,11 @@ const OnboardModal = () => {
   useEffect(() => {
     resetParams();
 
-    window?.ethereum?.on('chainChanged', () => {
+    window?.ethereum?.on("chainChanged", () => {
       resetParams();
     });
 
-    window?.ethereum?.on('accountsChanged', () => {
+    window?.ethereum?.on("accountsChanged", () => {
       resetParams();
     });
   }, []);
@@ -35,11 +35,11 @@ const OnboardModal = () => {
         return (
           <>
             <p className={styles.modalText}>
-              You don't have Core Wallet installed!
+              Core Wallet을 설치한 뒤 다시 시도해주세요!
             </p>
             <CustomButton
               title="Download Core"
-              handleClick={() => window.open('https://core.app/', '_blank')}
+              handleClick={() => window.open("https://core.app/", "_blank")}
             />
           </>
         );
@@ -48,7 +48,7 @@ const OnboardModal = () => {
         return (
           <>
             <p className={styles.modalText}>
-              You haven't connected your account to Core Wallet!
+              Core Wallet에 해당 계정이 연동되지 않았습니다!
             </p>
             <CustomButton
               title="Connect Account"
@@ -61,7 +61,7 @@ const OnboardModal = () => {
         return (
           <>
             <p className={styles.modalText}>
-              You're on a different network. Switch to Fuji C-Chain.
+              Fuji C-Chain네트워크와 다른 네트워크에 연결되어 있습니다.
             </p>
             <CustomButton title="Switch" handleClick={SwitchNetwork} />
           </>
@@ -71,17 +71,19 @@ const OnboardModal = () => {
         return (
           <>
             <p className={styles.modalText}>
-              Oops, you don't have AVAX tokens in your account
+              오우, 당신의 계정에 필요한 만큼의 Avax 토큰이 없네요..
             </p>
             <CustomButton
               title="Grab some test tokens"
-              handleClick={() => window.open('https://faucet.avax.network/', '_blank')}
+              handleClick={() =>
+                window.open("https://faucet.avax.network/", "_blank")
+              }
             />
           </>
         );
 
       default:
-        return <p className={styles.modalText}>Good to go!</p>;
+        return <p className={styles.modalText}>아무 이상 없음!</p>;
     }
   };
 
