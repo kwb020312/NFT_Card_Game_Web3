@@ -10,8 +10,8 @@ import Web3Modal from "web3modal";
 import { useNavigate } from "react-router-dom";
 
 import { GetParams } from "../utils/onboard.js";
-import { ABI, ADDRESS } from "../contract/index.js";
-import { createEventListeners } from "./createEventListener.js";
+import { ABI, ADDRESS } from "../contract";
+import { createEventListeners } from "./createEventListener";
 
 const GlobalContext = createContext();
 
@@ -76,6 +76,7 @@ export const GlobalContextProvider = ({ children }) => {
 
   useEffect(() => {
     updateCurrentWalletAddress();
+
     window?.ethereum?.on("accountsChanged", updateCurrentWalletAddress);
   }, []);
 
@@ -87,6 +88,7 @@ export const GlobalContextProvider = ({ children }) => {
       const newProvider = new ethers.providers.Web3Provider(connection);
       const signer = newProvider.getSigner();
       const newContract = new ethers.Contract(ADDRESS, ABI, signer);
+
       setProvider(newProvider);
       setContract(newContract);
     };

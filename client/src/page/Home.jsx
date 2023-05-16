@@ -18,11 +18,6 @@ const Home = () => {
 
   const handleClick = async () => {
     try {
-      const test = await await window?.ethereum?.request({
-        method: "eth_requestAccounts",
-      });
-
-      console.log(test[0]);
       const playerExists = await contract.isPlayer(walletAddress);
       if (!playerExists) {
         await contract.registerPlayer(playerName, playerName, {
