@@ -34,7 +34,9 @@ const GameLoad = () => {
               alt="player1"
               className={styles.gameLoadPlayerImg}
             />
-            <p className={styles.gameLoadPlayerText}>플레이어(나)</p>
+            <p
+              className={styles.gameLoadPlayerText}
+            >{`플레이어(${walletAddress})`}</p>
           </div>
 
           <h2 className={styles.gameLoadVS}>VS</h2>

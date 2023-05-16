@@ -16,9 +16,7 @@ import { createEventListeners } from "./createEventListener.js";
 const GlobalContext = createContext();
 
 export const GlobalContextProvider = ({ children }) => {
-  const [walletAddress, setWalletAddress] = useState(
-    "0x411Eb5aa9Aa7F799F420ad5b0278D6180275D0e6"
-  );
+  const [walletAddress, setWalletAddress] = useState("");
   const [battleGround, setBattleGround] = useState("bg-astral");
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
@@ -73,14 +71,11 @@ export const GlobalContextProvider = ({ children }) => {
       method: "eth_requestAccounts",
     });
 
-    console.log(accounts);
-
     if (accounts) setWalletAddress(accounts[0]);
   };
 
   useEffect(() => {
     updateCurrentWalletAddress();
-
     window?.ethereum?.on("accountsChanged", updateCurrentWalletAddress);
   }, []);
 

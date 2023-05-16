@@ -5,13 +5,24 @@ import { CustomButton, CustomInput, PageHOC } from "../components";
 import { useGlobalContext } from "../context";
 
 const Home = () => {
-  const { contract, walletAddress, gameData, setShowAlert, setErrorMessage } =
-    useGlobalContext();
+  const {
+    contract,
+    walletAddress,
+    gameData,
+    setShowAlert,
+    setErrorMessage,
+    updateCurrentWalletAddress,
+  } = useGlobalContext();
   const [playerName, setPlayerName] = useState("");
   const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
+      const test = await await window?.ethereum?.request({
+        method: "eth_requestAccounts",
+      });
+
+      console.log(test[0]);
       const playerExists = await contract.isPlayer(walletAddress);
       if (!playerExists) {
         await contract.registerPlayer(playerName, playerName, {
@@ -33,6 +44,7 @@ const Home = () => {
 
   useEffect(() => {
     const createPlayerToken = async () => {
+      // console.log(walletAddress);
       const playerExists = await contract.isPlayer(walletAddress);
       const playerTokenExists = await contract.isPlayerToken(walletAddress);
 
